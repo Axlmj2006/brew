@@ -784,9 +784,9 @@ module Homebrew
         tag ||= stable.version
 
         if @online
-          return if owner.nil? || repo.nil?
+          return if owner.nil?
 
-          error = SharedAudits.gitlab_release(owner, repo, tag, formula:)
+          error = SharedAudits.gitlab_release(owner, T.must(repo), tag, formula:)
           problem error if error
         end
       when %r{^https://github.com/([\w-]+)/([\w-]+)}
@@ -796,9 +796,9 @@ module Homebrew
         tag ||= formula.stable.specs[:tag]
 
         if @online
-          return if owner.nil? || repo.nil?
+          return if owner.nil?
 
-          error = SharedAudits.github_release(owner, repo, tag, formula:)
+          error = SharedAudits.github_release(owner, T.must(repo), tag, formula:)
           problem error if error
         end
       end
